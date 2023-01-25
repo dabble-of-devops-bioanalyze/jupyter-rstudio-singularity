@@ -238,7 +238,7 @@ def main(
     remote_image = str(remote_image)
     workdir = str(workdir)
     remote_image = str(remote_image)
-    port = int(port)
+    port = str(port)
     image_dir = os.path.dirname(image)
     os.makedirs(workdir, exist_ok=True)
     url_prefix = os.environ.get("JUPYTERHUB_SERVICE_PREFIX", "/").rstrip("/")
