@@ -212,7 +212,6 @@ def sanity_check_singularity_image(remote_image: str, image: str):
         return True
 
 
-@app.command()
 def main(
     remote_image: str = typer.Option(
         "docker://dabbleofdevops/r-tidyverse:4.2.2",
@@ -246,9 +245,7 @@ def main(
     image = os.path.abspath(str(image))
     remote_image = str(remote_image)
     workdir = str(workdir)
-    remote_image = str(remote_image)
     port = str(port)
-    image_dir = os.path.dirname(image)
     os.makedirs(workdir, exist_ok=True)
     url_prefix = os.environ.get("JUPYTERHUB_SERVICE_PREFIX", "/").rstrip("/")
     url_prefix = f"{url_prefix}/proxy/{port}/"
@@ -265,4 +262,4 @@ def main(
 
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    typer.run(main())  # pragma: no cover
