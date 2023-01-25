@@ -217,7 +217,7 @@ def main(
     ),
     image: str = typer.Option("r-tidyverse_4.2.2.sif", help="Path to local image"),
     r_lib: str = typer.Option(
-        os.path.join(os.environ.get["HOME"], "R", "rocker-rstudio", "4.2.2"),
+        os.path.join(os.environ.get("HOME"), "R", "rocker-rstudio", "4.2.2"),
         help="""Path to persist R libraries to.""",
     ),
     workdir: str = typer.Option(
