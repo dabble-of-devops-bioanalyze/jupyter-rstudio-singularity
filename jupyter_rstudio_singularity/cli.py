@@ -221,10 +221,11 @@ def main(
              we will pull the image from the remote.""",
     ),
     image: str = typer.Option(
-        os.path.join(os.environ.get('HOME', ''),
-                     ".singularity",
-                     "r-tidyverse_4.2.2.sif",
-                     ),
+        os.path.join(
+            os.environ.get('HOME', ''),
+            ".singularity",
+            "r-tidyverse_4.2.2.sif",
+        ),
         help="Path to local image"
     ),
     r_lib: str = typer.Option(
