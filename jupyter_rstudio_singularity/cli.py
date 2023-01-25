@@ -202,6 +202,7 @@ def sanity_check_singularity_image(remote_image: str, image: str):
     if not os.path.exists(image):
         logger.info("Local image doesn't exist. Pulling...")
         command = f"cd {image_dir} && singularity pull {str(remote_image)}"
+        logger.info(command)
         return shell_run_command(
             command=command,
             return_all=True,
@@ -219,7 +220,13 @@ def main(
              If the local image does not exist
              we will pull the image from the remote.""",
     ),
-    image: str = typer.Option("r-tidyverse_4.2.2.sif", help="Path to local image"),
+    image: str = typer.Option(
+        os.path.join(os.environ.get('HOME', ''),
+                     ".singularity",
+                     "r-tidyverse_4.2.2.sif",
+                     ),
+        help="Path to local image"
+    ),
     r_lib: str = typer.Option(
         os.path.join(os.environ.get("HOME"), "R", "rocker-rstudio", "4.2.2"),
         help="""Path to persist R libraries to.""",
