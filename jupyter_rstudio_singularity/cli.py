@@ -212,6 +212,7 @@ def sanity_check_singularity_image(remote_image: str, image: str):
         return True
 
 
+@app.command()
 def main(
     remote_image: str = typer.Option(
         "docker://dabbleofdevops/r-tidyverse:4.2.2",
@@ -262,4 +263,4 @@ def main(
 
 
 if __name__ == "__main__":
-    typer.run(main())  # pragma: no cover
+    sys.exit(main())  # pragma: no cover
