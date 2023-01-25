@@ -216,7 +216,8 @@ def sanity_check_singularity_image(
         return True
 
 
-def main(
+@cli.command()
+def launch(
     remote_image: str = typer.Option(
         "docker://dabbleofdevops/r-tidyverse:4.2.2",
         help="""Path to the remote image.
@@ -268,9 +269,5 @@ def main(
     return 0
 
 
-def app():
-    typer.run(main())
-
-
 if __name__ == "__main__":
-    typer.run(main())  # pragma: no cover
+    sys.exit(cli())  # pragma: no cover

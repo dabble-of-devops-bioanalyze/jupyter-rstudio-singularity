@@ -31,7 +31,7 @@ setup(
     description="Launch RStudio with Singularity from the command line.",
     entry_points={
         "console_scripts": [
-            "launch-rstudio=jupyter_rstudio_singularity.cli:app",
+            "launch-rstudio=jupyter_rstudio_singularity.cli:cli",
         ],
     },
     install_requires=requirements,
