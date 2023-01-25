@@ -261,7 +261,7 @@ def launch(
     prepare_rsession(workdir=workdir, r_lib=r_lib)
     run_rsession(
         workdir=workdir,
-        r_lib=rlib,
+        r_lib=r_lib,
         image=image,
         port=port,
         url_prefix=url_prefix,
