@@ -7,6 +7,8 @@ import socket
 from contextlib import closing
 
 from prefect import flow, task
+from prefect import flow
+from prefect_shell import shell_run_command
 import os
 import tempfile
 from jupyter_rstudio_singularity.utils.logging import setup_logger
