@@ -108,7 +108,7 @@ WORKDIR = tempfile.mkdtemp()
 HOME = os.environ.get("HOME")
 USER = os.environ.get("USER")
 
-app = typer.Typer()
+cli = typer.Typer()
 
 
 def find_free_port():
@@ -216,7 +216,6 @@ def sanity_check_singularity_image(
         return True
 
 
-@app.command()
 def main(
     remote_image: str = typer.Option(
         "docker://dabbleofdevops/r-tidyverse:4.2.2",
@@ -269,5 +268,9 @@ def main(
     return 0
 
 
+def app():
+    typer.run(cli())
+
+
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    sys.exit(app)  # pragma: no cover
