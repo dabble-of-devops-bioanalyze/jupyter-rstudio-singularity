@@ -197,7 +197,7 @@ def sanity_check_singularity_image(remote_image: str, image: str):
     image_dir = os.path.dirname(image)
     if not os.path.exists(image):
         logger.info("Local image doesn't exist. Pulling...")
-        os.makedirs(image_dir)
+        os.makedirs(image_dir, exist_ok=True)
         return shell_run_command(
             command=f"cd {image_dir} && singularity pull {remote_image}",
             return_all=True,
