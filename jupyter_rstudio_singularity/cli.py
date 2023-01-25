@@ -128,6 +128,11 @@ def prepare_dirs(workdir: str):
     )
 
 
+def chmod_dirs(workdir: str):
+    os.system(f"chmod -R 700 {workdir}")
+    os.system(f"chmod +x {workdir}/rsession.sh")
+
+
 def prepare_db_config(workdir: str) -> str:
     s = """provider=sqlite
 directory=/var/lib/rstudio-server"""
@@ -159,8 +164,11 @@ def run_rsession(workdir: str, r_lib: str, image: str, port: int, url_prefix: st
     logger.info(f"Launching RStudio at: {url_prefix}")
     command = f"""#!/usr/bin/env bash
 export SINGULARITY_BIND="{workdir}/run:/run,{workdir}/tmp:/tmp,{workdir}/database.conf:/etc/rstudio/database.conf,{workdir}/rsession.sh:/etc/rstudio/rsession.sh,{workdir}/var/lib/rstudio-server:/var/lib/rstudio-server"
+export APPTAINER_BIND="{workdir}/run:/run,{workdir}/tmp:/tmp,{workdir}/database.conf:/etc/rstudio/database.conf,{workdir}/rsession.sh:/etc/rstudio/rsession.sh,{workdir}/var/lib/rstudio-server:/var/lib/rstudio-server"
 export PORT={port}
 
+export APPTAINERENV_USER=$(id -un)
+export APPTAINERENV_PASSWORD=$(openssl rand -base64 15)
 export SINGULARITYENV_USER=$(id -un)
 export SINGULARITYENV_PASSWORD=$(openssl rand -base64 15)
 
@@ -189,6 +197,7 @@ def prepare_rsession(workdir: str, r_lib: str):
     prepare_dirs(workdir=workdir)
     prepare_db_config(workdir=workdir)
     prepare_rsession_script(workdir=workdir, r_lib=r_lib)
+    chmod_dirs(workdir=workdir)
 
     return
 
