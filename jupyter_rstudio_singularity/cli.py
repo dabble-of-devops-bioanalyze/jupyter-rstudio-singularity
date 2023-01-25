@@ -231,7 +231,9 @@ def main(
     ),
 ):
     """Console script for jupyter_rstudio_singularity."""
-    image = os.path.abspath(image)
+    image = os.path.abspath(str(image))
+    workdir = str(workdir)
+    remote_image = str(remote_image)
     image_dir = os.path.dirname(image)
     os.makedirs(workdir, exist_ok=True)
     if not os.path.exists(image):
