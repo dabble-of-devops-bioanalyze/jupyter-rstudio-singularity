@@ -194,7 +194,11 @@ def prepare_rsession(workdir: str, r_lib: str):
 
 
 @flow
-def sanity_check_singularity_image(remote_image: str, image: str):
+def sanity_check_singularity_image(
+    image: str,
+    remote_image: str,
+):
+    remote_image = str(remote_image)
     image = os.path.abspath(image)
     image_dir = os.path.dirname(image)
     if not os.path.exists(image_dir):
@@ -250,7 +254,10 @@ def main(
     os.makedirs(workdir, exist_ok=True)
     url_prefix = os.environ.get("JUPYTERHUB_SERVICE_PREFIX", "/").rstrip("/")
     url_prefix = f"{url_prefix}/proxy/{port}/"
-    sanity_check_singularity_image(remote_image=remote_image, image=image)
+    sanity_check_singularity_image(
+        remote_image=remote_image,
+        image=image
+    )
     prepare_rsession(workdir=workdir, r_lib=r_lib)
     run_rsession(
         workdir=workdir,
