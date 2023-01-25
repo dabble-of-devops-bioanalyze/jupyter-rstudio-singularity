@@ -195,9 +195,10 @@ def prepare_rsession(workdir: str, r_lib: str):
 def sanity_check_singularity_image(remote_image: str, image: str):
     image = os.path.abspath(image)
     image_dir = os.path.dirname(image)
+    if not os.path.exists(image_dir):
+        os.makedirs(image_dir, exist_ok=True)
     if not os.path.exists(image):
         logger.info("Local image doesn't exist. Pulling...")
-        os.makedirs(image_dir, exist_ok=True)
         return shell_run_command(
             command=f"cd {image_dir} && singularity pull {remote_image}",
             return_all=True,
@@ -236,8 +237,6 @@ def main(
     remote_image = str(remote_image)
     image_dir = os.path.dirname(image)
     os.makedirs(workdir, exist_ok=True)
-    if not os.path.exists(image):
-        os.makedirs(image_dir)
     url_prefix = os.environ.get("JUPYTERHUB_SERVICE_PREFIX", "/").rstrip("/")
     url_prefix = f"{url_prefix}/proxy/{port}/"
     sanity_check_singularity_image(remote_image=remote_image, image=image)
