@@ -269,8 +269,8 @@ def main(
 
 
 def app():
-    typer.run(cli())
+    typer.run(main())
 
 
 if __name__ == "__main__":
-    sys.exit(app)  # pragma: no cover
+    typer.run(main())  # pragma: no cover
